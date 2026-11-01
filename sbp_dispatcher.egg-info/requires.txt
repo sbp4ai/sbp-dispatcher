@@ -1,2 +1,0 @@
-aiohttp>=3.9
-sbp4ai-client>=0.4.0
