@@ -1,0 +1,15 @@
+README.md
+pyproject.toml
+sbp_dispatcher/__init__.py
+sbp_dispatcher/__main__.py
+sbp_dispatcher/app.py
+sbp_dispatcher/core.py
+sbp_dispatcher/e2ee.py
+sbp_dispatcher/legacy.py
+sbp_dispatcher/pubkey.py
+sbp_dispatcher.egg-info/PKG-INFO
+sbp_dispatcher.egg-info/SOURCES.txt
+sbp_dispatcher.egg-info/dependency_links.txt
+sbp_dispatcher.egg-info/entry_points.txt
+sbp_dispatcher.egg-info/requires.txt
+sbp_dispatcher.egg-info/top_level.txt

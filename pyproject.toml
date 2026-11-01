@@ -20,7 +20,7 @@ classifiers = [
 ]
 dependencies = [
     "aiohttp>=3.9",
-    "sbp-client>=0.4.0",
+    "sbp4ai-client>=0.4.0",
 ]
 
 [project.scripts]

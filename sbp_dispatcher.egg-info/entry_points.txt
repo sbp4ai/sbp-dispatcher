@@ -1,0 +1,2 @@
+[console_scripts]
+sbp-dispatcher = sbp_dispatcher:main

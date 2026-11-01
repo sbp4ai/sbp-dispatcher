@@ -52,5 +52,5 @@ networks. New deployments should use `/ws-e2ee` exclusively.
 
 ## Related
 
-- `sbp-client` — the E2EE crypto core both endpoints import.
+- [`sbp4ai-client`](https://pypi.org/project/sbp4ai-client/) — the E2EE crypto core both endpoints import.
 - `sbp-agents` — the device/panel that reports local tmux / CLI sessions.
