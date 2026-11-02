@@ -1,3 +1,0 @@
-[console_scripts]
-sbp-dispatcher = sbp_dispatcher:main
-sbp4ai-dispatcher = sbp_dispatcher:main

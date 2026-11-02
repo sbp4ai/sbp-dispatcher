@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sbp4ai-dispatcher"
-version = "0.5.7"
+version = "0.5.8"
 description = "SBP (Session Bridge Protocol) relay. Two modes: legacy HMAC/plaintext for trusted LAN, and an E2EE mode where the relay holds only public keys and routes by opaque HMAC tags - it can never read prompt text or history."
 readme = "README.md"
 requires-python = ">=3.9"
