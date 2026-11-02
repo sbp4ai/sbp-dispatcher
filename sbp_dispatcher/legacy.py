@@ -207,6 +207,15 @@ class Hub:
                     s["title"] = "未命名会话"
                 s["did"] = dev.did          # server 级客户端靠这个字段分组/路由
                 self.store.upsert_session(dev.did, s["sid"], s)
+            # 设备这次没报上来的会话 = 那个 tmux 已经没了：降成 idle。
+            # store 是只增不删的，不降级的话杀掉 tmux 后侧栏还留着一条「运行中」。
+            # 只处理「原本是 active」的，避免每次推送都写盘。
+            present = {s.get("sid") for s in payload.get("sessions", [])}
+            for old in self.store.index(dev.did):
+                sid = old.get("sid")
+                if sid in present or not old.get("active"):
+                    continue
+                self.store.upsert_session(dev.did, sid, {"active": False, "status": "idle"})
             self._remember(dev.did, [s.get("sid") for s in payload.get("sessions", [])])
             await self.to_clients(dev.did, {
                 "v": VERSION, "type": "evt", "name": "session.index",
@@ -315,7 +324,10 @@ class Hub:
                     "count": s.get("msg_count", 0),
                     "updated_at": s.get("updated_at", 0),
                     "kind": s.get("kind", "claude"),
-                    "agent": (dev.agent if dev else ""),
+                    "agent": s.get("agent") or (dev.agent if dev else ""),
+                    # 侧栏只显示此刻还在跑的会话；老设备只报 status，这里补一层兜底
+                    "active": bool(s.get("active", s.get("status") == "running")),
+                    "status": s.get("status", ""),
                 } for s in sessions]
                 await cl.send(res(True, {
                     "sessions": sessions,
@@ -351,6 +363,7 @@ class Hub:
                     "updated_at": s.get("updated_at", 0),
                     "kind": s.get("kind", "claude"),
                     "agent": s.get("agent") or (dev.agent if dev else meta.get("agent", "")),
+                    "active": bool(s.get("active", s.get("status") == "running")),
                     "status": s.get("status", ""),
                 } for s in sessions]
                 groups.append({
